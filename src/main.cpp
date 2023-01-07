@@ -1,5 +1,5 @@
 /*
-    No funciona si no tiene el codigo de antirrebote 
+    No funciona bien si no tiene el codigo de antirrebote 
     ya que mi pote no tiene condensadores
 */
 
