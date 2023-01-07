@@ -8,10 +8,10 @@
 volatile boolean TurnDetected;
 volatile boolean up;
 
-//const int PinCLK=2;                 // Used for generating interrupts using CLK signal
-#define PinCLK   2
-const int PinDT=4;                    // Used for reading DT signal
-const int PinSW=7;                    // Used for the push button switch
+               
+#define PinCLK   2        // Used for generating interrupts using CLK signal
+#define PinDT    4        // Used for reading DT signal
+#define PinSW    7        // Used for the push button switch
 
 void isr ()  {                    // Interrupt service routine is executed when  CLK is LOW
   //rutina antirrebote
