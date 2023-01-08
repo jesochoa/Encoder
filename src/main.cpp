@@ -1,6 +1,7 @@
 /*
     No funciona bien si no tiene el codigo de antirrebote 
-    ya que mi pote no tiene condensadores
+    ya que mi pote no tiene condensadores y hace saltos y cuenta
+    mas de uno
 */
 
 #include <Arduino.h>
@@ -9,11 +10,11 @@ volatile boolean TurnDetected;
 volatile boolean up;
 
                
-#define PinCLK   2        // Used for generating interrupts using CLK signal
-#define PinDT    4        // Used for reading DT signal
-#define PinSW    7        // Used for the push button switch
+#define PinCLK   PD2        // Used for generating interrupts using CLK signal
+#define PinDT    PD4        // Used for reading DT signal
+#define PinSW    PD7        // Used for the push button switch
 
-void isr ()  {                    // Interrupt service routine is executed when  CLK is LOW
+void isr ()  {            // Interrupt service routine is executed when  CLK is LOW
   //rutina antirrebote
   static unsigned long UltimaInterrupcion = 0; //La declaro Static para que no se pierda el valor
   unsigned long TiempoInterrupcion = millis();
@@ -21,7 +22,7 @@ void isr ()  {                    // Interrupt service routine is executed when 
     up = digitalRead(PinDT);
     TurnDetected = true;
   }
-  UltimaInterrupcion = TiempoInterrupcion;//Actualizo el tiempo de la interrupcion
+  UltimaInterrupcion = TiempoInterrupcion;  //Actualizo el tiempo de la interrupcion
 }
 
 
@@ -42,7 +43,7 @@ void loop ()  {
    Serial.print ("Reset = ");      // Using the word RESET instead of COUNT here to find out a buggy encoder
    
    Serial.println (virtualPosition);
-   while (!(digitalRead(PinSW))){} //No sale hasta que suelte el pulsador 
+   while (!(digitalRead(PinSW))){}    // No sale hasta que suelte el pulsador para que no lo lea mas de una vez
  }  
  
  if (TurnDetected)  {        // do this only if rotation was detected
